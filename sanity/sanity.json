@@ -1,11 +1,11 @@
 {
   "root": true,
   "api": {
-    "projectId": "kutp3su7",
+    "projectId": "ejiqoazc",
     "dataset": "production"
   },
   "project": {
-    "name": "slicks-slices"
+    "name": "nicks-slices"
   },
   "plugins": [
     "@sanity/base",
@@ -22,10 +22,8 @@
       ]
     }
   },
-  "parts": [
-    {
-      "name": "part:@sanity/base/schema",
-      "path": "./schemas/schema"
-    }
-  ]
+  "parts": [{
+    "name": "part:@sanity/base/schema",
+    "path": "./schemas/schema"
+  }]
 }

@@ -60,7 +60,6 @@ export default {
       // 1. filter undefined toppings out
       const tops = Object.values(toppings).filter(Boolean);
       // 2. return the preview object for the pizza
-      console.log('fields');
       return {
         title,
         media,

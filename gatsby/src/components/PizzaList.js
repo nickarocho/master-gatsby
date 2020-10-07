@@ -39,6 +39,7 @@ function SinglePizza({ pizza }) {
     </PizzaStyles>
   );
 }
+
 export default function PizzaList({ pizzas }) {
   return (
     <PizzaGridStyles>

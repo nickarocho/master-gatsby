@@ -19,7 +19,7 @@ const ToppingsStyles = styled.div`
       background: white;
       padding: 2px 5px;
     }
-    .active {
+    &[aria-current='page'] {
       background: var(--yellow);
     }
   }
@@ -74,8 +74,12 @@ export default function ToppingsFilter() {
   // loop over the list of toppings and display the topping and the count of pizzas in that topping
   return (
     <ToppingsStyles>
+      <Link to="/pizzas">
+        <span className="name">All</span>
+        <span className="count">{pizzas.nodes.length}</span>
+      </Link>
       {toppingsWithCounts.map((topping) => (
-        <Link to={`/toping/${topping.name}`} key={topping.id}>
+        <Link to={`/topping/${topping.name}`} key={topping.id}>
           <span className="name">{topping.name}</span>
           <span className="count">{topping.count}</span>
         </Link>

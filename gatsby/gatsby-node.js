@@ -118,7 +118,8 @@ export async function turnSlicemastersIntoPages({ graphql, actions }) {
       // this data is passed to the template when we create it
       context: {
         skip: i * pageSize,
-        current: i + 1,
+        currentPage: i + 1,
+        pageSize,
       },
     });
   });

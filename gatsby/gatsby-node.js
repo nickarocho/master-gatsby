@@ -49,6 +49,7 @@ async function turnToppingsIntoPages({ graphql, actions }) {
     actions.createPage({
       path: `topping/${topping.name}`,
       component: toppingTemplate,
+      // 4. pass topping data to pizza.js
       context: {
         topping: topping.name,
         // Regex for Topping
@@ -56,7 +57,6 @@ async function turnToppingsIntoPages({ graphql, actions }) {
       },
     });
   });
-  // 4. pass topping data to pizza.js
 }
 
 async function fetchBeersAndTurnIntoNodes({
@@ -89,6 +89,9 @@ async function fetchBeersAndTurnIntoNodes({
 }
 
 export async function turnSlicemastersIntoPages({ graphql, actions }) {
+  // Get a template for this page
+  const slicemasterTemplate = path.resolve('./src/templates/Slicemaster.js');
+
   // 1. Query all slicemasters
   const { data } = await graphql(`
     query {
@@ -104,7 +107,17 @@ export async function turnSlicemastersIntoPages({ graphql, actions }) {
       }
     }
   `);
-  // TODO: 2. Turn each slicemaster into their own page (TODO)
+
+  // 2. Turn each slicemaster into their own page (TODO)
+  data.slicemasters.nodes.forEach((person) => {
+    actions.createPage({
+      path: `slicemaster/${person.slug.current}`,
+      component: slicemasterTemplate,
+      context: {
+        slug: person.slug.current,
+      },
+    });
+  });
 
   // 3. Figure out how many pages there are based on how many slicemasters there are and how many per page
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);

@@ -40,14 +40,6 @@ export default function Pagination({
   const nextPage = currentPage + 1;
   const hasNextPage = nextPage <= totalPages;
   const hasPrevPage = prevPage > 0;
-  console.log({
-    currentPage,
-    totalPages,
-    prevPage,
-    nextPage,
-    hasNextPage,
-    hasPrevPage,
-  });
 
   return (
     <PaginationStyles>
@@ -59,6 +51,7 @@ export default function Pagination({
         <Link
           className={currentPage === 1 && i === 0 ? 'current' : ''}
           to={`${base}/${i > 0 ? i + 1 : ''}`}
+          key={`${base}${i}`}
         >
           {i + 1}
         </Link>

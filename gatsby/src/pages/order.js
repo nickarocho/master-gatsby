@@ -5,18 +5,27 @@ import SEO from '../components/SEO';
 import useForm from '../utils/useForm';
 import calculatePizzaPrice from '../utils/calculatePizzaPrice';
 import formatMoney from '../utils/formatMoney';
+import OrderStyles from '../styles/OrderStyles';
+import MenuItemSytles from '../styles/MenuItemStyles';
+import usePizza from '../utils/usePizza';
+import PizzaOrder from '../components/PizzaOrder';
+import calculateOrderTotals from '../utils/calculateOrderTotal';
 
 export default function OrderPage({ data }) {
+  const pizzas = data.pizzas.nodes;
   const { values, updateValue } = useForm({
     name: '',
     email: '',
   });
-  const pizzas = data.pizzas.nodes;
+  const { order, addToOrder, removeFromOrder } = usePizza({
+    pizzas,
+    inputs: values,
+  });
 
   return (
     <>
       <SEO title="Order a Pizza!" />
-      <form>
+      <OrderStyles>
         <fieldset>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
@@ -34,10 +43,10 @@ export default function OrderPage({ data }) {
             onChange={updateValue}
           />
         </fieldset>
-        <fieldset>
+        <fieldset className="menu">
           <legend>Menu</legend>
           {pizzas.map((pizza) => (
-            <div key={pizza.id}>
+            <MenuItemSytles key={pizza.id}>
               <Img
                 width={50}
                 height={50}
@@ -49,18 +58,38 @@ export default function OrderPage({ data }) {
               </div>
               <div>
                 {['S', 'M', 'L'].map((size) => (
-                  <button type="button">
+                  <button
+                    type="button"
+                    key={size}
+                    onClick={() =>
+                      addToOrder({
+                        id: pizza.id,
+                        size,
+                      })
+                    }
+                  >
                     {size} {formatMoney(calculatePizzaPrice(pizza.price, size))}
                   </button>
                 ))}
               </div>
-            </div>
+            </MenuItemSytles>
           ))}
         </fieldset>
-        <fieldset>
+        <fieldset className="order">
           <legend>Order</legend>
+          <PizzaOrder
+            order={order}
+            removeFromOrder={removeFromOrder}
+            pizzas={pizzas}
+          />
         </fieldset>
-      </form>
+        <fieldset>
+          <h3>
+            Your Total is {formatMoney(calculateOrderTotals(order, pizzas))}
+          </h3>
+          <button type="submit">Order Ahead</button>
+        </fieldset>
+      </OrderStyles>
     </>
   );
 }

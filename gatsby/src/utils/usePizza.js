@@ -33,7 +33,8 @@ export default function usePizza({ pizzas, values }) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setMessage(null);
+    // setMessage(null);
+
     // gather all the data
     const body = {
       order: attachNamesAndPrices(order, pizzas),
@@ -41,6 +42,7 @@ export default function usePizza({ pizzas, values }) {
       name: values.name,
       email: values.email,
     };
+
     // 4. Send this to a serverless fn when they check out
     const res = await fetch(
       `${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`,
@@ -52,7 +54,8 @@ export default function usePizza({ pizzas, values }) {
         body: JSON.stringify(body),
       }
     );
-    const text = await JSON.parse(res.text());
+
+    const text = JSON.parse(await res.text());
 
     // check if everything worked
     if (res.status >= 400 && res.status < 600) {

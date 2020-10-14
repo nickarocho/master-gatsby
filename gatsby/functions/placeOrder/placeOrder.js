@@ -17,7 +17,7 @@ function generateOrderEmail({ order, total }) {
           )
           .join('')}
       </ul>
-      <p>Your total is <strong>$${total}</strong>, due at pickup</p>
+      <p>Your total is <strong>${total}</strong>, due at pickup</p>
       <style>
           ul {
             list-style: none;
@@ -37,6 +37,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// for testing with latency
 function wait(ms = 0) {
   return new Promise((resolve, reject) => {
     setTimeout(resolve, ms);
@@ -44,7 +45,6 @@ function wait(ms = 0) {
 }
 
 exports.handler = async (event, context) => {
-  await wait(5000);
   const body = JSON.parse(event.body);
 
   // Validate the data coming in is correct
@@ -52,6 +52,7 @@ exports.handler = async (event, context) => {
 
   for (const field of requiredFields) {
     if (!body[field]) {
+      // Send the error msg
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -61,11 +62,18 @@ exports.handler = async (event, context) => {
     }
   }
 
+  // make sure they acutally have items in that order
+  if (!body.order.length) {
+    // Send the error msg
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `Why would you order nothing?!`,
+      }),
+    };
+  }
+
   // Send the email
-
-  // Send the success or error message
-
-  // test send an email
   const info = await transporter.sendMail({
     from: "Nick's Slices <nick@example.com>",
     to: `${body.name} <${body.email}>, orders@example.com`,
@@ -74,6 +82,7 @@ exports.handler = async (event, context) => {
   });
 
   return {
+    // Send the success msg
     statusCode: 200,
     body: JSON.stringify({ message: 'Success' }),
   };

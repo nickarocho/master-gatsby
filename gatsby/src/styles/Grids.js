@@ -17,12 +17,11 @@ export const ItemStyles = styled.div`
   text-align: center;
   position: relative;
   img {
-    border: 1px solid red;
     height: auto;
     font-size: 0;
   }
   p {
-    transform: rotate(-2deg) translateY(-50%);
+    transform: rotate(-2deg) translateY(-140%);
     position: absolute;
     width: 100%;
     left: 0;

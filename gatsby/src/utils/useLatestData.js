@@ -1,5 +1,20 @@
 import { useEffect, useState } from 'react';
 
+const gql = String.raw; // just a hacky trick for QGL syntax hightlighting
+
+const deets = `
+  name
+  _id
+  image {
+    asset {
+      url
+      metadata {
+        lqip
+      }
+    }
+  }
+`;
+
 export default function useLatestData() {
   // hot slices
   const [hotSlices, setHotSlices] = useState();
@@ -21,10 +36,10 @@ export default function useLatestData() {
             StoreSettings(id: "downtown") {
               name
               slicemasters {
-                name
+                ${deets}
               }
               hotSlices {
-                name
+                ${deets}
               }
             }
           }
@@ -33,10 +48,12 @@ export default function useLatestData() {
     })
       .then((res) => res.json())
       .then((res) => {
-        // TODO: check for errors
         // set the data to state
         setHotSlices(res.data.StoreSettings.hotSlices);
         setSlicemasters(res.data.StoreSettings.slicemasters);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

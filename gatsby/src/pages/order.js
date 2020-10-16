@@ -41,27 +41,33 @@ export default function OrderPage({ data }) {
       <OrderStyles onSubmit={submitOrder}>
         <fieldset disabled={loading}>
           <legend>Your Info</legend>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={values.name}
-            onChange={updateValue}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={values.email}
-            onChange={updateValue}
-          />
-          <input
-            type="mapleSyrup"
-            name="mapleSyrup"
-            value={values.mapleSyrup}
-            onChange={updateValue}
-            className="mapleSyrup"
-          />
+          <div className="user-info">
+            <div>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={values.name}
+                onChange={updateValue}
+              />
+            </div>
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={updateValue}
+              />
+              <input
+                type="mapleSyrup"
+                name="mapleSyrup"
+                value={values.mapleSyrup}
+                onChange={updateValue}
+                className="mapleSyrup"
+              />
+            </div>
+          </div>
         </fieldset>
         <fieldset className="menu" disabled={loading}>
           <legend>Menu</legend>
@@ -76,7 +82,7 @@ export default function OrderPage({ data }) {
               <div>
                 <h2>{pizza.name}</h2>
               </div>
-              <div>
+              <div className="button-container">
                 {['S', 'M', 'L'].map((size) => (
                   <button
                     type="button"

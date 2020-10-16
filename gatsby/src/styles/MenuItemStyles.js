@@ -8,6 +8,7 @@ const MenuItemSytles = styled.div`
   align-content: center;
   align-items: center;
   position: relative;
+  padding-top: 2rem;
   .gatsby-image-wrapper {
     grid-row: span 2;
     height: 100%;
@@ -15,11 +16,21 @@ const MenuItemSytles = styled.div`
   p {
     margin: 0;
   }
+  .button-container {
+    @media (max-width: 900px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
   button {
     font-size: 1.5rem;
   }
   button + button {
     margin-left: 1rem;
+    @media (max-width: 900px) {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
   }
   .remove {
     background: none;
@@ -30,6 +41,11 @@ const MenuItemSytles = styled.div`
     right: 0;
     box-shadow: none;
     line-height: 1rem;
+  }
+  @media (max-width: 900px) {
+    h2 {
+      font-size: 2rem;
+    }
   }
 `;
 

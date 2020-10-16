@@ -25,7 +25,6 @@ const SingleBeerStyles = styled.div`
 
 export default function BeersPage({ data }) {
   const beers = data.beers.nodes;
-  console.log(beers);
 
   return (
     <>

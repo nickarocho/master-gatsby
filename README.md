@@ -1,6 +1,6 @@
 # Nick's Slices
 
-A fake pizza company built with the intent of learning Gatsby, building/deploying a "headless" site, and staying sharp with React.
+A fake pizza company built with the intent of: learning Gatsby, building/deploying a "headless" site, and staying sharp with React.
 
 I really loved working on this project and now am pretty sold on Gatsby (and static site generation & the whole "headless" CMS thing in general... these sites are fast as f\*\*\* ⚡️ and easy to maintain for React devs).
 
